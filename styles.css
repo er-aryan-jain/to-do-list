@@ -1,71 +1,110 @@
 /* Global Styles */
 body {
-  background: rgb(255, 255, 255); /* Light background */
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 230, 230, 1) 100%); /* Soft gradient */
+  transition: background 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
   font-family: 'Roboto', sans-serif;
   text-align: center;
   margin-top: 50px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+body[data-theme="light"] {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 230, 230, 1) 100%); /* Light background */
   color: #333; /* Dark text for readability */
+}
+
+body[data-theme="dark"] {
+  background: radial-gradient(circle, rgba(33, 33, 33, 0.9) 0%, rgba(48, 48, 48, 1) 100%); /* Dark background */
+  color: #f5f5f5; /* Light text for dark mode */
 }
 
 /* To-Do Container */
 .todo-container {
-  background: rgba(240, 240, 240, 0.9); /* Light background for the todo container */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
   width: 450px;
   margin: 0 auto;
-  border: 2px solid #add8e6; /* Light blue border */
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Lighter shadow */
   box-sizing: border-box;
+}
+
+body[data-theme="light"] .todo-container {
+  background: rgba(240, 240, 240, 0.9); /* Light background for the todo container */
+  border: 2px solid #add8e6; /* Light blue border */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Light shadow */
+}
+
+body[data-theme="dark"] .todo-container {
+  background: rgba(48, 48, 48, 0.9); /* Dark background */
+  border: 2px solid #444; /* Darker border */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Darker shadow */
 }
 
 /* Header */
 #header {
-  margin: 5px;
-  font-size: 24px;
-  color: #4682b4; /* Soft blue */
-  text-align: center;
+  margin: 10px 0;
+  font-size: 28px;
+  color: #4682b4;
+  font-weight: bold;
+}
+
+body[data-theme="dark"] #header {
+  color: #a3c1d1; /* Lighter blue for dark mode */
 }
 
 h1 {
-  font-size: 36px;
-  color: #333; /* Dark text */
+  font-size: 38px;
   margin-bottom: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme="dark"] h1 {
+  text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.2);
+  color: #f5f5f5; /* Light text for dark mode */
 }
 
 /* Input Box */
 #input-box {
+  transition: background 0.3s ease, border-color 0.3s ease;
   width: 280px;
   padding: 12px;
-  border: 1px solid #ccc; /* Light gray border */
+  border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 18px;
-  background-color: #f9f9f9; /* Very light gray background */
   color: #333;
   outline: none;
-  transition: 0.3s;
 }
 
-#input-box:focus {
-  border-color: #4682b4; /* Soft blue border on focus */
-  background-color: #f0f8ff; /* Very light blue background */
+body[data-theme="light"] #input-box {
+  background-color: #f9f9f9;
+}
+
+body[data-theme="dark"] #input-box {
+  background-color: #333;
+  border-color: #555; /* Darker border for dark mode */
+  color: #f5f5f5;
 }
 
 /* Add Button */
 #input-button {
   font-size: 18px;
   cursor: pointer;
-  transition: 0.3s;
-  padding: 12px;
+  padding: 12px 20px;
   border: none;
   border-radius: 8px;
-  background-color: #4682b4; /* Soft blue */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+body[data-theme="light"] #input-button {
+  background-color: #4682b4;
   color: #fff;
 }
 
-#input-button:hover {
-  background-color: #5f9ea0; /* Lighter blue on hover */
+body[data-theme="dark"] #input-button {
+  background-color: #4b6cb7;
+  color: #fff;
 }
 
 /* Task List */
@@ -77,106 +116,81 @@ ul {
 }
 
 li {
-  background-color: #f0f8ff; /* Light blue background for tasks */
-  border: 1px solid #ddd; /* Light border */
-  border-radius: 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  background-color: #f0f8ff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   margin-bottom: 12px;
-  padding: 12px;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #333; /* Dark text */
+  font-size: 18px;
 }
 
-li:hover {
-  background-color: #e0f7fa; /* Slightly darker blue on hover */
-  border-color: #4682b4; /* Blue border on hover */
+body[data-theme="light"] li {
+  background-color: #f0f8ff;
+  border: 1px solid #ddd;
 }
 
-/* Task Buttons (Edit, Delete) */
+body[data-theme="dark"] li {
+  background-color: #444;
+  border: 1px solid #555;
+}
+
+/* Task Buttons (Edit, Delete, Complete) */
 .edit-btn, .delete-btn, .complete-btn {
   background-color: transparent;
-  color: #ff7f50; /* Coral color for task action buttons */
+  color: #ff7f50;
   border: none;
   cursor: pointer;
   padding: 8px 15px;
   font-size: 16px;
-  transition: 0.3s;
 }
 
-.edit-btn:hover, .delete-btn:hover {
-  background-color: rgba(255, 127, 80, 0.2); /* Light coral background on hover */
-}
-
-.complete-btn {
-  background-color: #90ee90; /* Light green for completed tasks */
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-.complete-btn:hover {
-  background-color: #98fb98; /* Lighter green on hover */
-}
-
-/* Strike-through for Completed Tasks */
-.completed {
-  text-decoration: line-through;
-  color: #aaa; /* Light gray for completed text */
-  background-color: rgba(211, 211, 211, 0.5); /* Light gray background for completed tasks */
-  border-color: rgba(211, 211, 211, 0.7); /* Lighter border */
-}
-
-.completed .edit-btn,
-.completed .delete-btn {
-  color: #aaa; /* Lighter color for disabled task buttons */
+body[data-theme="dark"] .edit-btn, 
+body[data-theme="dark"] .delete-btn,
+body[data-theme="dark"] .complete-btn {
+  color: #ff7043; /* Light coral for dark theme */
 }
 
 /* Task Counter */
 .counter-container {
   margin-top: 20px;
-  color: #333; /* Dark text for task counters */
   font-size: 18px;
 }
 
-#task-counters {
-  font-size: 20px;
-  color: #333; /* Dark text */
+body[data-theme="light"] .counter-container {
+  color: #333;
 }
 
-#completed-counter,
-#uncompleted-counter {
-  color: #4682b4; /* Soft blue for counters */
-  font-weight: bold;
+body[data-theme="dark"] .counter-container {
+  color: #f5f5f5;
 }
 
 hr {
-  border: 1px solid #4682b4; /* Soft blue line */
+  border: 1px solid #4682b4;
   margin-top: 20px;
 }
 
-/* Additional Enhancements */
-input[type="checkbox"] {
-  margin-right: 10px;
+body[data-theme="dark"] hr {
+  border-color: #555;
 }
 
-input[type="checkbox"]:checked + span {
-  color: #90ee90; /* Green for checked items */
+/* Toggle Button */
+.theme-toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  padding: 10px 15px;
+  background-color: #4682b4;
+  color: #fff;
+  border-radius: 50%;
+  border: none;
+  transition: background-color 0.3s ease;
 }
 
-/* Responsive Design */
-@media (max-width: 500px) {
-  .todo-container {
-    width: 90%;
-    padding: 20px;
-  }
-
-  #input-box {
-    width: 70%;
-  }
-
-  #input-button {
-    width: 25%;
-  }
+.theme-toggle-btn:hover {
+  background-color: #5f9ea0;
 }
